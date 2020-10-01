@@ -37,18 +37,11 @@ def analyze(request):
         params = {'purpose': 'Changed to Uppercase', 'analyzed_text': analyzed}
         djtext = analyzed
 
-    if(extraspaceremover=="on"):
-        analyzed = ""
-        for index, char in enumerate(djtext):
-            # It is for if a extraspace is in the last of the string
-            if char == djtext[-1]:
-                    if not(djtext[index] == " "):
-                        analyzed = analyzed + char
-
-            elif not(djtext[index] == " " and djtext[index+1]==" "):                        
-                analyzed = analyzed + char
-
-        params = {'purpose': 'Removed NewLines', 'analyzed_text': analyzed}
+    if extraspaceremover =='on':
+        while "  " in djtext:
+            djtext=djtext.replace('  ', ' ')
+        analyzed = djtext
+        params = {'purpose':'Extra space remover', 'analyzed_text': analyzed}
         djtext = analyzed
 
     if (newlineremover == "on"):
